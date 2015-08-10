@@ -4,8 +4,11 @@ using System.Collections;
 public class EnemyBehaviour : MonoBehaviour {
 
 	public string type;
+	public static GameObject money;
+
 	void Start () 
 	{
+		money = (GameObject)Resources.Load("Prefabs/Money");
 		switch (type)
 		{
 			case "Commoner":
@@ -30,26 +33,55 @@ public class EnemyBehaviour : MonoBehaviour {
 public class Enemy : MonoBehaviour
 {
 	protected float velocity = 1;
-	protected int life = 1;
-	
+	protected float life = 1;
+    protected int damaged = 1;
+    protected int myValue = 1;
+	public static int destroyer = 0;
+	public static bool dead = false;
+	bool item = false;
 
+	void Start () 
+	{
+		item = false;
+		destroyer = 0;
+	}
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		if(col.gameObject.tag.Equals("Arrow"))
+
+
+		if(col.gameObject.tag.Equals("Arrow") && this.transform.position.x > -3.2f && this.transform.position.x < 3.2f)
 		{
 			Destroy(col.gameObject);
-			life -= 1;
+			life -= LojaBehaviour.damage;
 		}
 		if(col.gameObject.tag.Equals("Castle"))
 		{
 			this.rigidbody2D.velocity = Vector2.zero;
-			this.GetComponent<Animator>().SetBool("inCastle",true);
+            this.GetComponent<Animator>().SetBool("inCastle", true);
+            StartCoroutine(Damage()); 
 		}
 	}
+    IEnumerator Damage()
+    {
+        CastleBehaviour.life -= damaged;
+        yield return new WaitForSeconds(1);
+        StartCoroutine(Damage());
+    }
+
+
 	void Update()
 	{
-		if(life.Equals(0))
-			Destroy(this.gameObject);
+		if(life <= 0){
+            if (!item)
+            {
+                GameObject drop = (GameObject) Instantiate(EnemyBehaviour.money, this.transform.position, this.transform.rotation);
+                drop.GetComponent<MoneyEnemyBehavior>().myValue = myValue;
+            }
+            item = true;
+            destroyer += 1;
+            Destroy(this.gameObject);
+		}
+						
 	}
 
 }

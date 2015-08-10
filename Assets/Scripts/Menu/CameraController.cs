@@ -32,7 +32,7 @@ public class CameraController : MonoBehaviour {
     //mundando posição para Menu principal
     public void changeLocationToMenu()
     {
-        this.transform.position = Vector3.Slerp(this.transform.position, new Vector3(0,0,0), 5 * Time.deltaTime);
+        this.transform.position = Vector3.Slerp(this.transform.position, new Vector3(0,0,-10), 5 * Time.deltaTime);
     }
 
     public void ManagerOfScript()

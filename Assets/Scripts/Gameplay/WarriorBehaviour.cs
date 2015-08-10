@@ -8,6 +8,7 @@ public class WarriorBehaviour : Enemy {
 		this.GetComponent<SpriteRenderer>().sprite = Resources.Load("Sprites/Enemies/Guerreiro1") as Sprite;
 		life = 4;
 		velocity = 1;
+        myValue = Random.Range(1, 5) * 10;
 		this.rigidbody2D.velocity = this.transform.right * velocity;
 	}
 }
