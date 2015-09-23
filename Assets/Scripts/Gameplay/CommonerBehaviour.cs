@@ -9,6 +9,6 @@ public class CommonerBehaviour : Enemy {
 		life = 1;
         myValue = Random.Range(1,3) * 10;
 		velocity = 2;
-		this.rigidbody2D.velocity = this.transform.right * velocity;
+		this.rigidbody2D.velocity = this.transform.right * velocity * 10;
 	}
 }

@@ -22,6 +22,14 @@ public class PowerUpController : MonoBehaviour {
 			Physics2D.IgnoreCollision(this.gameObject.collider2D, col.gameObject.collider2D);
 		}
 	}
+    void RandomBonus()
+    {
+        int randomize = Random.Range(0, 0);
+        if (randomize.Equals(0))
+        {
+            CastleBehaviour.HealMe();
+        }
+    }
     IEnumerator LeaveMe()
     {
         yield return new WaitForSeconds(Random.Range(0,1.8f));
@@ -57,7 +65,7 @@ public class PowerUpController : MonoBehaviour {
 	}
     void OnMouseDown()
     {
+        RandomBonus();
         Destroy(this.gameObject);
-        player.GetComponent<ShootBehaviour>().StartCoroutine(player.GetComponent<ShootBehaviour>().Bonus());
     }
 }

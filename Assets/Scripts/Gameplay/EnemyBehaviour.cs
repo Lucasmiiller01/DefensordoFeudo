@@ -37,6 +37,7 @@ public class Enemy : MonoBehaviour
     protected int damaged = 1;
     protected int myValue = 1;
 	public static int destroyer = 0;
+	public static int destroyerTotal = 0;
 	public static bool dead = false;
 	bool item = false;
 
@@ -49,7 +50,7 @@ public class Enemy : MonoBehaviour
 	{
 
 
-		if(col.gameObject.tag.Equals("Arrow") && this.transform.position.x > -3.2f && this.transform.position.x < 3.2f)
+		if(col.gameObject.tag.Equals("Arrow") && this.transform.position.x > -27f && this.transform.position.x < 27f)
 		{
 			Destroy(col.gameObject);
 			life -= LojaBehaviour.damage;
@@ -58,14 +59,14 @@ public class Enemy : MonoBehaviour
 		{
 			this.rigidbody2D.velocity = Vector2.zero;
             this.GetComponent<Animator>().SetBool("inCastle", true);
-            StartCoroutine(Damage()); 
+            StartCoroutine(Damage(col.gameObject)); 
 		}
 	}
-    IEnumerator Damage()
+    IEnumerator Damage(GameObject Castle)
     {
-        CastleBehaviour.life -= damaged;
+        Castle.GetComponent<CastleBehaviour>().DamageMe(damaged);
         yield return new WaitForSeconds(1);
-        StartCoroutine(Damage());
+        StartCoroutine(Damage(Castle));
     }
 
 
@@ -79,6 +80,7 @@ public class Enemy : MonoBehaviour
             }
             item = true;
             destroyer += 1;
+			destroyerTotal += 1;
             Destroy(this.gameObject);
 		}
 						

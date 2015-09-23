@@ -4,10 +4,8 @@ using System.Collections;
 public class MoneyEnemyBehavior : MonoBehaviour {
 
     public int myValue = 1;
-	public bool goIn;
 
-	void Start ()
-	{
+	void Start () {
         if (myValue > 30)
             this.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Coins/Diamond");
         else if (myValue > 20)
@@ -51,39 +49,20 @@ public class MoneyEnemyBehavior : MonoBehaviour {
 			Physics2D.IgnoreCollision(this.gameObject.collider2D, col.gameObject.collider2D);
 		}
 	}
+	void Update () {
 
-	void GoToGuest()
-	{
-			this.transform.position = 
-			Vector3.Slerp(this.transform.position,
-			              GameObject.Find("MoneyDirection").GetComponent<Transform>().position, 5 * Time.deltaTime);
-	}
 
-	void Update ()
-	{
 		if(DirectionManager.onMousePress && collider2D.OverlapPoint(DirectionManager.worldPos))
 		{
 			LojaBehaviour.money += myValue;
 			Destroy(this.gameObject);
 		}
 
-		if (goIn) 
-		{
-			GoToGuest ();
-		}
 
 	}
 	void OnMouseDown()
 	{
         LojaBehaviour.money += myValue;
-       // Destroy(this.gameObject);
-		goIn = true;
-	}
-
-	void OnMouseUp()
-	{
-		LojaBehaviour.money += myValue;
-		// Destroy(this.gameObject);
-		//this.transform.position = Vector3.Slerp(this.transform.position, GameObject.Find("MoneyDirection").GetComponent<Transform>().position, 5 * Time.deltaTime);
+		Destroy(this.gameObject);
 	}
 }

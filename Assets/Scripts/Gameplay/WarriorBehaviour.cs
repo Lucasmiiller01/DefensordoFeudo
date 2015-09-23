@@ -9,6 +9,6 @@ public class WarriorBehaviour : Enemy {
 		life = 4;
 		velocity = 1;
         myValue = Random.Range(1, 5) * 10;
-		this.rigidbody2D.velocity = this.transform.right * velocity;
+		this.rigidbody2D.velocity = this.transform.right * velocity * 10;
 	}
 }

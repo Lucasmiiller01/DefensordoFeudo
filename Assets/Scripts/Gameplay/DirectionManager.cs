@@ -18,17 +18,22 @@ public class DirectionManager : MonoBehaviour {
 		worldPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		if(Input.GetButtonDown("Fire1"))
 		{
-			onMousePress = true;
-			if(Input.mousePosition.x >  Screen.width / 2)
+			if(!CastleBehaviour.lose)
 			{
-				player.transform.eulerAngles = new Vector3(0,0,0);
-				player.GetComponent<ShootBehaviour>().Shoot();
+				onMousePress = true;
+				if(Input.mousePosition.x >  Screen.width / 2)
+				{
+					player.transform.eulerAngles = new Vector3(0,0,0);
+					player.GetComponent<ShootBehaviour>().Shoot();
+				}
+				else
+				{
+					player.transform.eulerAngles = new Vector3(0,180,0);
+					player.GetComponent<ShootBehaviour>().Shoot();
+				}
 			}
 			else
-			{
-				player.transform.eulerAngles = new Vector3(0,180,0);
-				player.GetComponent<ShootBehaviour>().Shoot();
-			}
+				Application.LoadLevel(Application.loadedLevel);
 		}
 		if(Input.GetButtonUp("Fire1"))
 		{
