@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\MySQL\MySQLCS.cs" />
      <Compile Include="Assets\Scripts\Gameplay\ArrowDestroyController.cs" />
      <Compile Include="Assets\Scripts\Gameplay\CastleBehaviour.cs" />
      <Compile Include="Assets\Scripts\Gameplay\CommonerBehaviour.cs" />
@@ -64,8 +65,19 @@
      <Compile Include="Assets\Scripts\Menu\CameraController.cs" />
      <Compile Include="Assets\Scripts\Menu\CloudsManager.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuHistoryManager.cs" />
+     <Compile Include="Assets\Scripts\SqlConnection\DatabaseConnection.cs" />
+     <Compile Include="Assets\Scripts\SqlConnection\LoginGUI.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="MySql.Data">
+ <HintPath>C:/Users/yago.melo/Desktop/GitHub/DefensordoFeudo/Assets/Plugins/MySql.Data.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data">
+ <HintPath>C:/Users/yago.melo/Desktop/GitHub/DefensordoFeudo/Assets/Plugins/System.Data.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Drawing">
+ <HintPath>C:/Users/yago.melo/Desktop/GitHub/DefensordoFeudo/Assets/Plugins/System.Drawing.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -42,6 +42,7 @@ public class MoneyEnemyBehavior : MonoBehaviour {
 		yield return new WaitForSeconds(0.3f);
 		Destroy(this.gameObject);
 	}
+
 	void OnCollisionEnter2D (Collision2D col)
 	{
 		if(col.gameObject.tag.Equals("PowerUp") || col.gameObject.tag.Equals("Item"))
@@ -49,6 +50,7 @@ public class MoneyEnemyBehavior : MonoBehaviour {
 			Physics2D.IgnoreCollision(this.gameObject.collider2D, col.gameObject.collider2D);
 		}
 	}
+
 	void Update () {
 
 
