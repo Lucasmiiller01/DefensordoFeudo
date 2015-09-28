@@ -9,7 +9,7 @@ public class MenuHistoryManager : MonoBehaviour {
     {
         if (this.tag.Equals("Amy"))
         {
-            this.speed = -2.5f * Time.deltaTime;
+            this.speed = 2.5f * Time.deltaTime;
         }
 
         if (this.name.Equals("Plebeu"))
@@ -33,7 +33,7 @@ public class MenuHistoryManager : MonoBehaviour {
         this.transform.Translate(this.speed, 0, 0);
 
         if (this.transform.position.x < -16.11f && this.tag.Equals("Amy"))
-        { this.transform.rotation = new Quaternion(0, 180, 0, 0); }
+        { this.transform.rotation = new Quaternion(0, 0, 0, 0); }
 
         if (this.transform.position.x < -16.11f && this.name.Equals("Plebeu"))
         { this.transform.rotation = new Quaternion(0, 0, 0, 0); }
@@ -42,7 +42,7 @@ public class MenuHistoryManager : MonoBehaviour {
         { this.transform.rotation = new Quaternion(0, 180, 0, 0); }
 
         if (this.transform.position.x > 12.45f && this.tag.Equals("Amy"))
-        { this.transform.rotation = new Quaternion(0, 0, 0, 0); }
+        { this.transform.rotation = new Quaternion(0, 180, 0, 0); }
 
     }
 	

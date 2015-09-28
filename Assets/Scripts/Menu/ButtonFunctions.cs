@@ -8,6 +8,18 @@ public class ButtonFunctions : MonoBehaviour
         Application.LoadLevel(scene);
     }
 
+    public void ChangeSceneAfter(int scene)
+    {
+        StartCoroutine(ChangeSceneAfterie(scene));
+    }
+
+    IEnumerator ChangeSceneAfterie(int scene)
+    {
+        yield return new WaitForSeconds(1);
+        Application.LoadLevel(scene);
+    
+    }
+
     public void DesableObject(GameObject obj)
     {
         obj.SetActive(false);

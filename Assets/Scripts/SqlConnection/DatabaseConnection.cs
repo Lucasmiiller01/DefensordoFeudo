@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Collections;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using MySql.Data;
 using MySql.Data.MySqlClient;
@@ -14,7 +14,7 @@ public class DatabaseConnection : MonoBehaviour {
 	public bool pooling = true;
 
 	private string connectionString;
-	private MySqlConnection connection = null;
+	private MySqlConnection con = null;
 	private MySqlCommand cmd = null;
 	private MySqlDataReader rdr = null;
 
@@ -23,21 +23,17 @@ public class DatabaseConnection : MonoBehaviour {
 	void Awake()
 	{
 		DontDestroyOnLoad (this.gameObject);
-		this.connectionString = "Server = " + host + "Database = " + database + "User = " + user + "Passwoord = " + password;
-
-		if (pooling) 
-		{
+		this.connectionString = "Server=" + host + "Database=" + database + "User=" + user + "Password=" + password;
+		if (pooling) {
 			connectionString += "true;";
-		}
-		else 
-		{
+		} else {
 			connectionString += "false;";
 		}
 
 		try {
-			connection = new MySqlConnection(connectionString);
-			connection.Open();
-			Debug.Log("Mysql State:" + connection.State);
+			con = new MySqlConnection(this.connectionString);
+			con.Open();
+			Debug.Log("Mysql State:" + con.State);
 		} 
 		catch (Exception e)
 		{
@@ -47,19 +43,18 @@ public class DatabaseConnection : MonoBehaviour {
 
 	void OnApplicationQuit()
 	{
-		if (connection != null)
+		if (con != null)
 		{
-			if(connection.State.ToString() != "Closed")
-			{
-				connection.Close();
+			if(con.State.ToString() != "Closed"){
+				con.Close();
 				Debug.Log("MySql Connection closed");
 			}
-			connection.Dispose();
+			con.Dispose();
 		}
 	}
 
 	public string GetConnectionState()
 	{
-		return connection.State.ToString ();
+		return con.State.ToString ();
 	}
 }
