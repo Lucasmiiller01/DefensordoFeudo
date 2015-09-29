@@ -19,6 +19,11 @@ public class CloudsManager : MonoBehaviour {
         {
             this.transform.Translate(-1 * 0.05f * Time.deltaTime, 0, 0);
         }
+
+        if (this.name.Equals("CloudsCanvas"))
+        {
+            this.GetComponent<RectTransform>().transform.Translate();
+        }
     }
 	
 
