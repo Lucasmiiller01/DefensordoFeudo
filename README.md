@@ -7,4 +7,5 @@ TODO:
 	- Add a database comunication (the actual version has a primitive system, but the comunication still precarious)
 	- Add the end of the game (death player).
 	- Add a day and night transition system.
+	- Add new maps (possibile a map in the moon, this would be so beautiful *)
 				...
