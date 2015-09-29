@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{CB9D43C8-6FF4-D4AB-61ED-350D65FB3345}</ProjectGuid>
+	<ProjectGuid>{103180B5-2CF4-F13A-79AC-478586A4EFE3}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\MySQL\MySQLCS.cs" />
      <Compile Include="Assets\Scripts\Gameplay\ArrowDestroyController.cs" />
      <Compile Include="Assets\Scripts\Gameplay\CastleBehaviour.cs" />
      <Compile Include="Assets\Scripts\Gameplay\CommonerBehaviour.cs" />
@@ -54,6 +53,7 @@
      <Compile Include="Assets\Scripts\Gameplay\EagleBonusBehaviour.cs" />
      <Compile Include="Assets\Scripts\Gameplay\EagleSpawnController.cs" />
      <Compile Include="Assets\Scripts\Gameplay\EnemyBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\FadeDestroy.cs" />
      <Compile Include="Assets\Scripts\Gameplay\LojaBehaviour.cs" />
      <Compile Include="Assets\Scripts\Gameplay\MoneyEnemyBehavior.cs" />
      <Compile Include="Assets\Scripts\Gameplay\PowerUpController.cs" />
@@ -65,19 +65,17 @@
      <Compile Include="Assets\Scripts\Menu\CameraController.cs" />
      <Compile Include="Assets\Scripts\Menu\CloudsManager.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuHistoryManager.cs" />
-     <Compile Include="Assets\Scripts\SqlConnection\DatabaseConnection.cs" />
-     <Compile Include="Assets\Scripts\SqlConnection\LoginGUI.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="MySql.Data">
- <HintPath>C:/Users/YagoLuis/Documents/GitHub/DefensordoFeudo/Assets/Plugins/MySql.Data.dll</HintPath>
+ <HintPath>C:/Users/YagoLuis/Documents/GitHub/DefensordoFeudo/Datas/Assets/Plugins/MySql.Data.dll</HintPath>
  </Reference>
  <Reference Include="System.Data">
- <HintPath>C:/Users/YagoLuis/Documents/GitHub/DefensordoFeudo/Assets/Plugins/System.Data.dll</HintPath>
+ <HintPath>C:/Users/YagoLuis/Documents/GitHub/DefensordoFeudo/Datas/Assets/Plugins/System.Data.dll</HintPath>
  </Reference>
  <Reference Include="System.Drawing">
- <HintPath>C:/Users/YagoLuis/Documents/GitHub/DefensordoFeudo/Assets/Plugins/System.Drawing.dll</HintPath>
+ <HintPath>C:/Users/YagoLuis/Documents/GitHub/DefensordoFeudo/Datas/Assets/Plugins/System.Drawing.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
