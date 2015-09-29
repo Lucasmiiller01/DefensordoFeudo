@@ -68,15 +68,6 @@
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
  </Reference>
- <Reference Include="MySql.Data">
- <HintPath>C:/Users/yago.melo/Desktop/GitHub/DefensordoFeudo/Datas/Assets/Plugins/MySql.Data.dll</HintPath>
- </Reference>
- <Reference Include="System.Data">
- <HintPath>C:/Users/yago.melo/Desktop/GitHub/DefensordoFeudo/Datas/Assets/Plugins/System.Data.dll</HintPath>
- </Reference>
- <Reference Include="System.Drawing">
- <HintPath>C:/Users/yago.melo/Desktop/GitHub/DefensordoFeudo/Datas/Assets/Plugins/System.Drawing.dll</HintPath>
- </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
