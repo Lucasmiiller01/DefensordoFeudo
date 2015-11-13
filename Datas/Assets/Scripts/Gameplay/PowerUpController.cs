@@ -27,7 +27,6 @@ public class PowerUpController : MonoBehaviour {
         int randomize = Random.Range(0, 0);
         if (randomize.Equals(0))
         {
-            CastleBehaviour.HealMe();
         }
     }
     IEnumerator LeaveMe()

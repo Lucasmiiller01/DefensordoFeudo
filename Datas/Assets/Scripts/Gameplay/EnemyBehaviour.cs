@@ -16,7 +16,6 @@ public class EnemyBehaviour : MonoBehaviour {
 				this.gameObject.AddComponent<CommonerBehaviour>();
 				break;
 			case "Warrior":
-			case "Guerreiro":
 				this.gameObject.AddComponent<WarriorBehaviour>();
 				break;
 			default:
@@ -27,7 +26,6 @@ public class EnemyBehaviour : MonoBehaviour {
 	}
 
 }
-
 
 
 public class Enemy : MonoBehaviour
@@ -41,15 +39,15 @@ public class Enemy : MonoBehaviour
 	public static bool dead = false;
 	bool item = false;
 
+
 	void Start () 
 	{
 		item = false;
 		destroyer = 0;
 	}
+
 	void OnTriggerEnter2D(Collider2D col)
 	{
-
-
 		if(col.gameObject.tag.Equals("Arrow") && this.transform.position.x > -27f && this.transform.position.x < 27f)
 		{
 			Destroy(col.gameObject);
@@ -68,22 +66,22 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(1);
         StartCoroutine(Damage(Castle));
     }
-
+	
 
 	void Update()
 	{
-		if(life <= 0){
-            if (!item)
-            {
-                GameObject drop = (GameObject) Instantiate(EnemyBehaviour.money, this.transform.position, this.transform.rotation);
-                drop.GetComponent<MoneyEnemyBehavior>().myValue = myValue;
-            }
-            item = true;
-            destroyer += 1;
-			destroyerTotal += 1;
-            Destroy(this.gameObject);
-		}
-						
-	}
 
+		if(life <= 0){
+			if (!item)
+			{
+				GameObject drop = (GameObject) Instantiate(EnemyBehaviour.money, this.transform.position, this.transform.rotation);
+				drop.GetComponent<MoneyEnemyBehavior>().myValue = myValue;
+			}
+			item = true;
+			destroyer += 1;
+			destroyerTotal += 1;
+			Destroy(this.gameObject);
+		}
+		
+	}
 }

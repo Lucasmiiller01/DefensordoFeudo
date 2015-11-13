@@ -4,113 +4,156 @@ using System.Collections;
 
 public class LojaBehaviour : MonoBehaviour {
 
-	public class upgrade
-	{
-		public float level;
-        public float ratio;
-        public float price;
-		
-		public void levelUp(int effect)
-        {
-            level += 1;
-            money -= price;
-			price =  Mathf.Pow(level ,ratio) + price;
-            if (effect.Equals(0))
-                damage += price / 200;
-            else if (effect.Equals(1))
-			{
-                CastleBehaviour.maxLife += level * 10 * (CastleBehaviour.maxLife / 100);
-			}
-            else if (effect.Equals(2))
-                farm += level * level;
-		}
-	}
-
     public static float money;
-    public static float farm;
     public static float damage;
+
 	public Text moneyState;
-	public GameObject[] itens;
-	public GameObject[] off;
-	public Text[] itens_t;
-    public GameObject hud;
-    public upgrade[] bonus = new upgrade[4];
+    public Image[] scene;
+    public SpriteRenderer myPerson;
+	public GameObject Arm;
+    public Sprite[] person;
+	public Sprite[] tiro;
+    public Sprite[] basic;
+	public Sprite[] hell;
+    public GameObject menu;
+    public GameObject insertName;
+
+    private string myUpgrades;
+    private string skin_backgound;
+    private float value;
+    private string upgrade;
+
+    void Awake()
+	{	
+        if (PlayerPrefs.HasKey("name"))
+        {
+            GameObject.Find("NameInsert").SetActive(false);
+            menu.SetActive(true);
+        }
+
+    }
 
 	void Start()
-	{
-        farm = 0;
-        damage = 0.3f;
-		for (int i = 0; i < bonus.Length; i++)
+    {
+        if (PlayerPrefs.HasKey("myUpgrades"))
+            myUpgrades = PlayerPrefs.GetString("myUpgrade");
+        if (PlayerPrefs.HasKey("money"))
+            money = PlayerPrefs.GetFloat("money");
+        Enemy.destroyerTotal = 0;
+        damage = 1f;
+		moneyState.text = money.ToString ();
+
+	}
+	public void SetName (GameObject texto) {
+		if(texto.GetComponent<Text>().text != "" && texto.GetComponent<Text>().text != null)
 		{
-			bonus[i] = new upgrade();
-			bonus[i].level = 1;
+			insertName.SetActive(false);
+			PlayerPrefs.SetString("name", texto.GetComponent<Text>().text);
 		}
-		bonus[0].price = 100;
-		bonus[0].ratio = 7;
-		bonus[1].price = 50;
-		bonus[1].ratio = 6;
-        bonus[2].price = 50;
-        bonus[2].ratio = 5;
-		bonus[3].price = 70;
-		bonus[3].ratio = 3;
-		money = 0;
-		StartCoroutine(Money());
-	}
-
-	public void item(int number)
-	{
-        if (money >= bonus[number].price)
-        {
-            bonus[number].levelUp(number);
-        }
-	}
-	public void Loja()
-	{
-		if(itens[1].activeSelf == false){
-            hud.SetActive(true);
-            for (int i = 0; i < itens.Length; i++)
-            {
-                itens[i].SetActive(true);
-            }
-		}
-        else
-        {
-            hud.SetActive(false);
-            for (int i = 0; i < itens.Length; i++)
-            {
-                itens[i].SetActive(false);
-                if (i < off.Length)
-                {
-                    off[i].SetActive(true);
-                }
-            }
-				
-		}
-	}
-
-	IEnumerator Money()
-	{
-		yield return new WaitForSeconds(2);
-		money += farm;
-		StartCoroutine(Money());
-	}
-
-	void Update () {
-
-		for (int i = 0; i < bonus.Length; i++) 
+		else 
 		{
-            if (bonus[i].price > 1000000)
-                itens_t[i].text = "Money " + ((Mathf.Floor(bonus[i].price / 100000)) / 10).ToString() + "M"  + "  Lvl  " + bonus[i].level;
-            else if (bonus[i].price > 1000)
-                itens_t[i].text = "Money " + ((Mathf.Floor(bonus[i].price / 100)) / 10).ToString() + "K" + "  Lvl  " + bonus[i].level;
-            else
-                itens_t[i].text = "Money " + bonus[i].price + "  Lvl  " + bonus[i].level;
+			menu.SetActive(false);
+			insertName.SetActive(true);
 		}
+	}
+	public void Scene (string scene) {
+		Application.LoadLevel (scene);
+	}
+
+	
+	public void SumCoin(int value)
+	{
+		money += value;
         if (money > 1000000)
-            moneyState.text = ((Mathf.Floor(money / 100000)) / 10).ToString() + "M"; 
+            moneyState.text = ((Mathf.Floor(money / 100000)) / 10).ToString() + "M";
         else if (money > 10000)
             moneyState.text = ((Mathf.Floor(money / 100)) / 10).ToString() + "K";
         else
-		    moneyState.text = money.ToString();
+            moneyState.text = money.ToString();
+        PlayerPrefs.SetFloat("money", money);
 	}
+    public void SetValue(float values)
+    {
+        value = values;
+    }
+    public void SetUpgrade(string upgrades)
+    {
+        upgrade = upgrades;
+    }
+	public void BuyAndSelect(GameObject texts)
+    {
+        Text text = texts.GetComponent<Text>();
+		bool iHave = false;
+        if (myUpgrades != null & myUpgrades != "")
+        {
+            string[] acquiredUp;
+            acquiredUp = myUpgrades.Split('|');
+            foreach (string verify in acquiredUp)
+            {
+                if (verify.Equals(upgrade))
+                {
+                    iHave = true;
+                }
+            }
+        }
+        if (iHave)
+        {
+            if (text.text.Equals(upgrade + " Ative"))
+            {
+                text.text = upgrade + " Acquired";
+                DesactiveScene();
+            }
+            else
+            {
+                ActiveUpgrade(text);
+            }
+        }
+        else if (money >= value)
+        {
+          
+            myUpgrades += "|" + upgrade;
+            print(myUpgrades);
+            PlayerPrefs.SetString("myUpgrades", myUpgrades);
+            print(PlayerPrefs.GetString("myUpgrades"));
+            ActiveUpgrade(text);
+            SumCoin(int.Parse((value *-1).ToString()));
+        }
+	}
+    void ActiveUpgrade(Text text)
+    {
+        text.text = upgrade + " Ative";
+        if(upgrade.Equals("Hell"))
+        {
+            for (int i = 0; i < scene.Length; i++)
+            {
+                scene[i].sprite = hell[i];
+            }
+        }
+        else if (upgrade.Equals("Hunter"))
+        {
+            myPerson.sprite = person[1];
+
+        }
+        else if (upgrade.Equals("Mage"))
+        {
+            myPerson.sprite = person[2];
+        }
+        else if (upgrade.Equals("Hippie"))
+        {
+            myPerson.sprite = person[3];
+			Arm.GetComponent<SpriteRenderer>().sprite = tiro[1];
+
+        }
+    }
+    void DesactivePerson()
+    {
+        myPerson.sprite = person[0];
+    }
+    void DesactiveScene()
+    {
+        for (int i = 0; i < scene.Length; i++)
+        {
+            scene[i].sprite = basic[i];
+        }
+    }
 }
