@@ -4,7 +4,6 @@ using System.Collections;
 
 public class ScoreManaher : MonoBehaviour {
 	private string link;
-    public Text mensage;
 
 
 
@@ -35,16 +34,16 @@ public class ScoreManaher : MonoBehaviour {
             switch (w.text)
             {
                 case "1":
-                    mensage.text = "Sucesso";
+                    print("Sucesso");
                     break;
                 case "-1":
 
-                    mensage.text = "Erro ao cadastrar.";
-                    //mensage.color = Color.red;
+                    print( "Erro ao cadastrar.");
+    
                     break;
 
                 default:
-                    mensage.text =w.text;
+                    print(w.text);
                     break;
             }
         }

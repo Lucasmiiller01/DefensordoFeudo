@@ -51,8 +51,6 @@
      <Compile Include="Assets\Scripts\Gameplay\DirectionManager.cs" />
      <Compile Include="Assets\Scripts\Gameplay\EagleBonusBehaviour.cs" />
      <Compile Include="Assets\Scripts\Gameplay\EagleSpawnController.cs" />
-     <Compile Include="Assets\Scripts\Gameplay\EnemiesTipes\Air.cs" />
-     <Compile Include="Assets\Scripts\Gameplay\EnemiesTipes\Default.cs" />
      <Compile Include="Assets\Scripts\Gameplay\EnemiesTipes\Fire.cs" />
      <Compile Include="Assets\Scripts\Gameplay\EnemiesTipes\Stone.cs" />
      <Compile Include="Assets\Scripts\Gameplay\EnemiesTipes\Water.cs" />

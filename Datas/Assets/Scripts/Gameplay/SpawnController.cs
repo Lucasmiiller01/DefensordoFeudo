@@ -17,10 +17,9 @@ public class SpawnController : MonoBehaviour {
 		timeSet = Time.fixedTime;
 		enemiesTypes = new string[]
 		{
-			"Water", 
+			"Ice", 
 			"Fire", 
-			"Stone",
-			"Air",		
+			"Stone",	
 		};
 	}
 	void Update() {
@@ -49,13 +48,13 @@ public class SpawnController : MonoBehaviour {
 				if(this.gameObject.tag == "Spawn1")
 				{
 					spawnado = (GameObject) Instantiate(enemy,this.transform.position,this.transform.rotation);
-					spawnado.GetComponent<EnemyTypeSet>().type = enemiesTypes[random_enemy];
+					spawnado.GetComponent<EnemyTypeSet>().SetMyType(enemiesTypes[random_enemy]);
 				}
 				if(this.gameObject.tag == "Spawn2")
 				{
 					spawnado = (GameObject) Instantiate(enemy,this.transform.position,this.transform.rotation);
-					spawnado.GetComponent<EnemyTypeSet>().type = enemiesTypes[random_enemy];	
-				}
+                    spawnado.GetComponent<EnemyTypeSet>().SetMyType(enemiesTypes[random_enemy]);
+                }
 			}
 			catch{}
 		}

@@ -18,8 +18,9 @@ public class LojaBehaviour : MonoBehaviour {
 	public Sprite[] hell;
     public Text[] texts;
     public GameObject menu;
+    public GameObject insertNewName;
     public GameObject insertName;
-
+    private float valueNewNome;
     private string myUpgrades;
     private string activedperso;
     private string activedS;
@@ -103,7 +104,32 @@ public class LojaBehaviour : MonoBehaviour {
 			insertName.SetActive(true);
 		}
 	}
-	public void Scene (string scene) {
+    public void SetNewName(GameObject texto)
+    {
+        if (texto.GetComponent<Text>().text != "" && texto.GetComponent<Text>().text != null)
+        {
+            insertNewName.SetActive(false);
+            PlayerPrefs.SetString("name", texto.GetComponent<Text>().text);
+            money -= valueNewNome;
+            PlayerPrefs.SetFloat("money", money);
+            moneyState.text = money.ToString();
+        }
+        else 
+        {
+            insertNewName.SetActive(true);
+        }
+
+    }
+    public void DecreaseCoin(int value1)
+    {
+        if(money > value1)
+        {
+            insertNewName.SetActive(true);
+            valueNewNome = value1;
+        }
+
+    }
+    public void Scene (string scene) {
         SceneManager.LoadScene(scene);
 	}
 
@@ -119,6 +145,7 @@ public class LojaBehaviour : MonoBehaviour {
             moneyState.text = money.ToString();
         PlayerPrefs.SetFloat("money", money);
 	}
+  
     public void SetValue(float values)
     {
         value = values;
@@ -164,10 +191,11 @@ public class LojaBehaviour : MonoBehaviour {
         }
         else if (money >= value)
         {
-            myUpgrades +=  "|" + upgrade;   
-            ActiveUpgrade(text);
-            SumCoin(int.Parse((value *-1).ToString()));
-            PlayerPrefs.SetString("myUpgrades", myUpgrades);
+           
+                myUpgrades +=  "|" + upgrade;   
+                ActiveUpgrade(text);
+                SumCoin(int.Parse((value * -1).ToString()));
+                PlayerPrefs.SetString("myUpgrades", myUpgrades);
         }
 	}
     void ActiveUpgrade(Text text)
