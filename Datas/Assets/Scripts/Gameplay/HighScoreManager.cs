@@ -20,8 +20,8 @@ public class HighScoreManager : MonoBehaviour {
 	
 	IEnumerator GetHighScore(string url)
 	{
-		WWW u = new WWW(url);
-		new WaitForSeconds(1f);
+        WWW u = new WWW(url + "?service=get");
+        new WaitForSeconds(1f);
 		yield return u;
 		string[] opa = u.text.Split ('/','>');
 		string pao = string.Join (";",opa);

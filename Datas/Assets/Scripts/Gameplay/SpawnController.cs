@@ -17,19 +17,19 @@ public class SpawnController : MonoBehaviour {
 		timeSet = Time.fixedTime;
 		enemiesTypes = new string[]
 		{
-			"Commoner", 
-			"Commoner", 
-			"Warrior"
-		
+			"Water", 
+			"Fire", 
+			"Stone",
+			"Air",		
 		};
 	}
 	void Update() {
-		deadEnemy.text = Enemy.destroyerTotal.ToString();
+		deadEnemy.text = EnemyBehaviour.destroyerTotal.ToString();
 
 	}
 	void FixedUpdate(){
 		SpawnEnemy ();
-		waitTime = SetTimeSpawn(Enemy.destroyerTotal);
+		waitTime = SetTimeSpawn(EnemyBehaviour.destroyerTotal);
 
 	}
 	float SetTimeSpawn(int kills)
@@ -49,12 +49,12 @@ public class SpawnController : MonoBehaviour {
 				if(this.gameObject.tag == "Spawn1")
 				{
 					spawnado = (GameObject) Instantiate(enemy,this.transform.position,this.transform.rotation);
-					spawnado.GetComponent<EnemyBehaviour>().type = enemiesTypes[random_enemy];
+					spawnado.GetComponent<EnemyTypeSet>().type = enemiesTypes[random_enemy];
 				}
 				if(this.gameObject.tag == "Spawn2")
 				{
 					spawnado = (GameObject) Instantiate(enemy,this.transform.position,this.transform.rotation);
-					spawnado.GetComponent<EnemyBehaviour>().type = enemiesTypes[random_enemy];	
+					spawnado.GetComponent<EnemyTypeSet>().type = enemiesTypes[random_enemy];	
 				}
 			}
 			catch{}

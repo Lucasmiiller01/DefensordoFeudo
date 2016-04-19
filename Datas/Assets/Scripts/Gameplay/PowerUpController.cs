@@ -10,7 +10,7 @@ public class PowerUpController : MonoBehaviour {
     }
 	void Update()
 	{
-		if(DirectionManager.onMousePress && collider2D.OverlapPoint(DirectionManager.worldPos))
+		if(DirectionManager.onMousePress && GetComponent<Collider2D>().OverlapPoint(DirectionManager.worldPos))
 		{
 			Destroy(this.gameObject);
 		}
@@ -19,7 +19,7 @@ public class PowerUpController : MonoBehaviour {
 	{
 		if(col.gameObject.tag.Equals("PowerUp") || col.gameObject.tag.Equals("Item"))
 		{
-			Physics2D.IgnoreCollision(this.gameObject.collider2D, col.gameObject.collider2D);
+			Physics2D.IgnoreCollision(this.gameObject.GetComponent<Collider2D>(), col.gameObject.GetComponent<Collider2D>());
 		}
 	}
     void RandomBonus()

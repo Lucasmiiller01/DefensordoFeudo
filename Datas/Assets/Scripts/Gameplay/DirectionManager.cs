@@ -13,7 +13,7 @@ public class DirectionManager : MonoBehaviour {
 		player = GameObject.Find("Player");
 	}
 
-	void Update () 
+	void LateUpdate () 
 	{
 		worldPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		if(Input.GetButtonDown("Fire1"))
@@ -24,16 +24,12 @@ public class DirectionManager : MonoBehaviour {
 				if(Input.mousePosition.x >  Screen.width / 2)
 				{
 					player.transform.eulerAngles = new Vector3(0,0,0);
-					player.GetComponent<ShootBehaviour>().Shoot();
 				}
 				else
 				{
 					player.transform.eulerAngles = new Vector3(0,180,0);
-					player.GetComponent<ShootBehaviour>().Shoot();
 				}
 			}
-			else
-				Application.LoadLevel(Application.loadedLevel);
 		}
 		if(Input.GetButtonUp("Fire1"))
 		{

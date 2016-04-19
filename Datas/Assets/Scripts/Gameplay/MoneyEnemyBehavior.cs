@@ -5,9 +5,11 @@ public class MoneyEnemyBehavior : MonoBehaviour {
 
 	private Transform finalPosition;
 	public int myValue = 1;
-	private GameObject Money;
+	private GameObject loja;
 
 	void Start () {
+		loja = GameObject.FindGameObjectWithTag("Loja");
+
 		finalPosition = GameObject.Find ("PosToGo").transform;
         if (myValue > 30)
             this.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Coins/Diamond");
@@ -24,8 +26,7 @@ public class MoneyEnemyBehavior : MonoBehaviour {
 		this.transform.position = Vector3.Lerp (this.transform.position, finalPosition.position,0.05f);
 		if(Mathf.Round(this.transform.position.y).Equals(Mathf.Round(finalPosition.position.y)))
 		{
-			Money = GameObject.FindGameObjectWithTag("Loja");
-			Money.GetComponent<LojaBehaviour>().SumCoin(myValue);
+			loja.GetComponent<LojaBehaviour>().SumCoin(myValue);
 			Destroy(this.gameObject);
 		}
 	}
