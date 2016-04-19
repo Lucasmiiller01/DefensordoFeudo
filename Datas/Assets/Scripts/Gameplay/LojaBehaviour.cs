@@ -20,8 +20,10 @@ public class LojaBehaviour : MonoBehaviour {
     public GameObject menu;
     public GameObject insertName;
 
-    public string myUpgrades;
-    private string skin_backgound;
+    private string myUpgrades;
+    private string activedperso;
+    private string activedS;
+    public Sprite[] spites = new Sprite[2];
     private float value;
     private string upgrade;
 
@@ -49,23 +51,31 @@ public class LojaBehaviour : MonoBehaviour {
             if (verify.Equals("Hell"))
             {
                 texts[4].text = verify + " Acquired";
-                for (int i = 0; i < scene.Length; i++)
+                if (PlayerPrefs.GetString("activedS") == verify)
                 {
-                    scene[i].sprite = hell[i];
+                    for (int i = 0; i < scene.Length; i++)
+                    {
+                        scene[i].sprite = hell[i];
+                    }
                 }
             }
-            if (verify.Equals("Hunter"))
+            else if (verify.Equals("Hunter"))
             {
                 texts[0].text = verify + " Acquired";
-                myPerson.sprite = person[1];
-
+                if (PlayerPrefs.GetString("activedperso") == verify)
+                {
+                     myPerson.sprite = person[1];
+                }
             }
-            if (verify.Equals("Hippie"))
+            else  if (verify.Equals("Hippie"))
             {
                 texts[1].text = verify + " Acquired";
-                myPerson.sprite = person[3];
-                Arm.GetComponent<SpriteRenderer>().sprite = tiro[1];
 
+                if (PlayerPrefs.GetString("activedperso") == verify)
+                {
+                    myPerson.sprite = person[3];
+                }
+             
             }
         }
 
@@ -134,11 +144,13 @@ public class LojaBehaviour : MonoBehaviour {
             {
                 text.text = upgrade + " Acquired";
                 DesactivePerson();
+                PlayerPrefs.SetString("activedperso", "");
             }
             else if(text.text.Equals(upgrade + " Ative") && upgrade == "Hell")
             {
                 DesactiveScene();
                 text.text = upgrade + " Acquired";
+                PlayerPrefs.SetString("activedS", "");
             }
             else
             {
@@ -161,21 +173,29 @@ public class LojaBehaviour : MonoBehaviour {
             for (int i = 0; i < scene.Length; i++)
             {
                 scene[i].sprite = hell[i];
+                activedS = upgrade;
+                PlayerPrefs.SetString("activedS", activedS);
             }
+          
         }
         if (upgrade.Equals("Hunter"))
         {
             myPerson.sprite = person[1];
+            activedperso = upgrade;
+            PlayerPrefs.SetString("activedperso", activedperso);
 
         }
         if (upgrade.Equals("Mage"))
         {
             myPerson.sprite = person[2];
+            activedperso = upgrade;
+            PlayerPrefs.SetString("activedperso", activedperso);
         }
         if (upgrade.Equals("Hippie"))
         {
+            activedperso = upgrade;
             myPerson.sprite = person[3];
-			Arm.GetComponent<SpriteRenderer>().sprite = tiro[1];
+            PlayerPrefs.SetString("activedperso", activedperso);
 
         }
     }
