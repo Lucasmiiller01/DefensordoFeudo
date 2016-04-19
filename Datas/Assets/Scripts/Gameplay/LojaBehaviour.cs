@@ -50,32 +50,37 @@ public class LojaBehaviour : MonoBehaviour {
         {
             if (verify.Equals("Hell"))
             {
-                texts[4].text = verify + " Acquired";
                 if (PlayerPrefs.GetString("activedS") == verify)
                 {
                     for (int i = 0; i < scene.Length; i++)
                     {
                         scene[i].sprite = hell[i];
                     }
+                    texts[4].text = verify + " Ative";
                 }
+                else texts[4].text = verify + " Acquired";
             }
             else if (verify.Equals("Hunter"))
             {
-                texts[0].text = verify + " Acquired";
+               
                 if (PlayerPrefs.GetString("activedperso") == verify)
                 {
                      myPerson.sprite = person[1];
+                    texts[0].text = verify + " Ative";
                 }
+                else texts[0].text = verify + " Acquired";
             }
             else  if (verify.Equals("Hippie"))
             {
-                texts[1].text = verify + " Acquired";
+               
 
                 if (PlayerPrefs.GetString("activedperso") == verify)
                 {
                     myPerson.sprite = person[3];
+                    texts[1].text = verify + " Ative";
                 }
-             
+                else texts[1].text = verify + " Acquired";
+
             }
         }
 
