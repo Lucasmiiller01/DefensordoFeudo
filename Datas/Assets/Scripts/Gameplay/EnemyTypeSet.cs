@@ -84,7 +84,7 @@ public class EnemyBehaviour : MonoBehaviour
 	void Update()
 	{
 
-		if(life <= 0){
+		if(life <= 0 && !CastleBehaviour.lose){
 			if (!item)
 			{
 				GameObject drop = (GameObject) Instantiate(this.gameObject.GetComponent<EnemyTypeSet>().GetMyValue(), this.transform.position, this.transform.rotation);
@@ -95,6 +95,7 @@ public class EnemyBehaviour : MonoBehaviour
 			destroyerTotal += 1;
 			Destroy(this.gameObject);
 		}
+        if (CastleBehaviour.lose) Destroy(this.gameObject);
 		
 	}
 }

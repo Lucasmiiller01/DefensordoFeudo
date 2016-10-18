@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LojaBehaviour : MonoBehaviour {
 
-    public static float money;
+    public float money;
     public static float damage;
 
 	public Text moneyState;
@@ -20,7 +20,7 @@ public class LojaBehaviour : MonoBehaviour {
     public GameObject menu;
     public GameObject insertNewName;
     public GameObject insertName;
-    private float valueNewNome;
+    private int valueNewNome;
     private string myUpgrades;
     private string activedperso;
     private string activedS;
@@ -32,7 +32,7 @@ public class LojaBehaviour : MonoBehaviour {
     void Awake()
 	{
 
-        if (PlayerPrefs.HasKey("name"))
+        if (ZPlayerPrefs.HasKey("ws_name"))
         {
             GameObject.Find("NameInsert").SetActive(false);
             menu.SetActive(true);
@@ -42,16 +42,20 @@ public class LojaBehaviour : MonoBehaviour {
 
 	void Start()
     {
-        if (PlayerPrefs.HasKey("myUpgrades"))
-            myUpgrades = PlayerPrefs.GetString("myUpgrades");
+
+        if (ZPlayerPrefs.HasKey("ws_myUpgrades"))
+            myUpgrades = ZPlayerPrefs.GetString("ws_myUpgrades");
+
+        if (ZPlayerPrefs.HasKey("ws_money"))
+            money = ZPlayerPrefs.GetInt("ws_money");
 
         string[] acquiredUp;
-        acquiredUp = PlayerPrefs.GetString("myUpgrades").Split('|');
+        acquiredUp = ZPlayerPrefs.GetString("ws_myUpgrades").Split('|');
         foreach (string verify in acquiredUp)
         {
             if (verify.Equals("Hell"))
             {
-                if (PlayerPrefs.GetString("activedS") == verify)
+                if (ZPlayerPrefs.GetString("ws_activedS") == verify)
                 {
                     for (int i = 0; i < scene.Length; i++)
                     {
@@ -64,7 +68,7 @@ public class LojaBehaviour : MonoBehaviour {
             else if (verify.Equals("Hunter"))
             {
                
-                if (PlayerPrefs.GetString("activedperso") == verify)
+                if (ZPlayerPrefs.GetString("ws_activedperso") == verify)
                 {
                      myPerson.sprite = person[1];
                     texts[0].text = verify + " Ative";
@@ -75,7 +79,7 @@ public class LojaBehaviour : MonoBehaviour {
             {
                
 
-                if (PlayerPrefs.GetString("activedperso") == verify)
+                if (ZPlayerPrefs.GetString("ws_activedperso") == verify)
                 {
                     myPerson.sprite = person[3];
                     texts[1].text = verify + " Ative";
@@ -85,8 +89,8 @@ public class LojaBehaviour : MonoBehaviour {
             }
         }
 
-        if (PlayerPrefs.HasKey("money"))
-           money = PlayerPrefs.GetFloat("money");
+       
+       
         EnemyBehaviour.destroyerTotal = 0;
         damage = 1f;
 		moneyState.text = money.ToString ();
@@ -96,7 +100,7 @@ public class LojaBehaviour : MonoBehaviour {
 		if(texto.GetComponent<Text>().text != "" && texto.GetComponent<Text>().text != null)
 		{
 			insertName.SetActive(false);
-			PlayerPrefs.SetString("name", texto.GetComponent<Text>().text);
+			ZPlayerPrefs.SetString("ws_name", texto.GetComponent<Text>().text);
 		}
 		else 
 		{
@@ -109,9 +113,9 @@ public class LojaBehaviour : MonoBehaviour {
         if (texto.GetComponent<Text>().text != "" && texto.GetComponent<Text>().text != null)
         {
             insertNewName.SetActive(false);
-            PlayerPrefs.SetString("name", texto.GetComponent<Text>().text);
+            ZPlayerPrefs.SetString("ws_name", texto.GetComponent<Text>().text);
             money -= valueNewNome;
-            PlayerPrefs.SetFloat("money", money);
+            ZPlayerPrefs.SetInt("ws_money", int.Parse(money.ToString()));
             moneyState.text = money.ToString();
         }
         else 
@@ -143,7 +147,7 @@ public class LojaBehaviour : MonoBehaviour {
             moneyState.text = ((Mathf.Floor(money / 100)) / 10).ToString() + "K";
         else
             moneyState.text = money.ToString();
-        PlayerPrefs.SetFloat("money", money);
+        ZPlayerPrefs.SetInt("ws_money", int.Parse(money.ToString()));
 	}
   
     public void SetValue(float values)
@@ -176,13 +180,13 @@ public class LojaBehaviour : MonoBehaviour {
             {
                 text.text = upgrade + " Acquired";
                 DesactivePerson();
-                PlayerPrefs.SetString("activedperso", "");
+                ZPlayerPrefs.SetString("ws_activedperso", "");
             }
             else if(text.text.Equals(upgrade + " Ative") && upgrade == "Hell")
             {
                 DesactiveScene();
                 text.text = upgrade + " Acquired";
-                PlayerPrefs.SetString("activedS", "");
+                ZPlayerPrefs.SetString("ws_activedS", "");
             }
             else
             {
@@ -195,7 +199,7 @@ public class LojaBehaviour : MonoBehaviour {
                 myUpgrades +=  "|" + upgrade;   
                 ActiveUpgrade(text);
                 SumCoin(int.Parse((value * -1).ToString()));
-                PlayerPrefs.SetString("myUpgrades", myUpgrades);
+                ZPlayerPrefs.SetString("ws_myUpgrades", myUpgrades);
         }
 	}
     void ActiveUpgrade(Text text)
@@ -207,7 +211,7 @@ public class LojaBehaviour : MonoBehaviour {
             {
                 scene[i].sprite = hell[i];
                 activedS = upgrade;
-                PlayerPrefs.SetString("activedS", activedS);
+                ZPlayerPrefs.SetString("ws_activedS", activedS);
             }
           
         }
@@ -215,20 +219,20 @@ public class LojaBehaviour : MonoBehaviour {
         {
             myPerson.sprite = person[1];
             activedperso = upgrade;
-            PlayerPrefs.SetString("activedperso", activedperso);
+            ZPlayerPrefs.SetString("ws_activedperso", activedperso);
 
         }
         if (upgrade.Equals("Mage"))
         {
             myPerson.sprite = person[2];
             activedperso = upgrade;
-            PlayerPrefs.SetString("activedperso", activedperso);
+            ZPlayerPrefs.SetString("ws_activedperso", activedperso);
         }
         if (upgrade.Equals("Hippie"))
         {
             activedperso = upgrade;
             myPerson.sprite = person[3];
-            PlayerPrefs.SetString("activedperso", activedperso);
+            ZPlayerPrefs.SetString("ws_activedperso", activedperso);
 
         }
     }

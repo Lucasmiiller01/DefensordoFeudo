@@ -27,10 +27,13 @@ public class SpawnController : MonoBehaviour {
 
 	}
 	void FixedUpdate(){
-		SpawnEnemy ();
-		waitTime = SetTimeSpawn(EnemyBehaviour.destroyerTotal);
+        if(!CastleBehaviour.lose)
+        {
+            SpawnEnemy ();
+		    waitTime = SetTimeSpawn(EnemyBehaviour.destroyerTotal);
+        }
 
-	}
+    }
 	float SetTimeSpawn(int kills)
 	{
 		if (kills < 150)

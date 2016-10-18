@@ -11,22 +11,42 @@ public class CastleBehaviour : MonoBehaviour {
 	public Text score_t;
 	public Text record_t;
 	private float opa ;
-	private float record;
-	public GameObject newrecord;
+	public int record;
+    private bool mandou;
+    public GameObject newrecord;
+    private bool isEncriptionInitialized;
 
+    void Awake()
+    {
+        InicializeEncryotion();
 
+    }
     void Start () {
 		atualnumber = 0;
 		lose = false;
-	}
-	void FixedUpdate () 
+        mandou = false;
+
+    }
+	void Update () 
 	{
 		if (lose) {
 			SumToScore (EnemyBehaviour.destroyerTotal);
-			record = PlayerPrefs.GetFloat("Record");
+			if(!mandou) record = ZPlayerPrefs.GetInt("ws_record");
+            mandou = true;
 		}
 	}
-	void SumToScore(float myScore)
+    void InicializeEncryotion()
+    {
+        if (!!isEncriptionInitialized)
+        {
+            if(!PlayerPrefs.HasKey("ws_id"))
+            {
+                PlayerPrefs.SetString("ws_id", Random.Range(1000000,999999).ToString());
+                ZPlayerPrefs.Initialize("CHAVE_DE_ENCRIPTACAO", "Sd" + PlayerPrefs.GetString("ws_id") + "ds");
+            }
+        }
+    }
+    void SumToScore(float myScore)
 	{
 
         if (atualnumber < myScore && atualnumber / (myScore * (myScore + 1 - atualnumber) - atualnumber) <= Time.fixedTime - opa)
@@ -41,14 +61,14 @@ public class CastleBehaviour : MonoBehaviour {
    
 	public void DamageMe(float damaged)
 	{
-		GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("Canvas BG");
 		canvas.GetComponent<Canvas>().sortingOrder = 5;
 		gameOver.SetActive(true);
 		lose = true;
       
 		GetComponent<ScoreManaher> ().enabled = true;
-		if (PlayerPrefs.HasKey ("Record") && EnemyBehaviour.destroyerTotal > PlayerPrefs.GetFloat ("Record") || !PlayerPrefs.HasKey ("Record")) {
-			PlayerPrefs.SetFloat ("Record", EnemyBehaviour.destroyerTotal);
+		if (ZPlayerPrefs.HasKey ("ws_record") && EnemyBehaviour.destroyerTotal > ZPlayerPrefs.GetInt ("ws_record") || !ZPlayerPrefs.HasKey ("ws_record")) {
+            ZPlayerPrefs.SetInt ("ws_record", EnemyBehaviour.destroyerTotal);
 			newrecord.SetActive (true);
 
 		}
