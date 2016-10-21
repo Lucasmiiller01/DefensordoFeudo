@@ -7,7 +7,8 @@ public class EagleSpawnController : MonoBehaviour {
     void Start()
     {
         PowerUp = (GameObject)Resources.Load("Prefabs/Eagle");
-        StartCoroutine(Instantiate());
+        if(!CastleBehaviour.lose)
+            StartCoroutine(Instantiate());
 	}
     IEnumerator Instantiate()
     {

@@ -8,24 +8,25 @@ public class ScoreManaher : MonoBehaviour {
 
 
     void Start () {
-        link = "http://supermanfans.16mb.com/index.php";
-        SetScoreToData();
+        link = "http://defensor.16mb.com/set.php";
+        if (ZPlayerPrefs.GetInt("ws_record") > 0) SetScoreToData();
 	}
 	
 
 
 	void SetScoreToData()
 	{
-        StartCoroutine(SetScore(EnemyBehaviour.destroyerTotal, PlayerPrefs.GetString("name"), link));
-    
+        StartCoroutine(SetScore(ZPlayerPrefs.GetInt("ws_record"), ZPlayerPrefs.GetString("ws_name") != null && ZPlayerPrefs.GetString("ws_name") != "" ? ZPlayerPrefs.GetString("ws_name") : "Defalt Player", link));
     }
 
     IEnumerator SetScore(int score, string name, string url)
     {
-        WWW w = new WWW(link + "?service=set&score=" + score + "&nome=" + name);
-        yield return new WaitForSeconds(.5f);
+        WWWForm form = new WWWForm();
+        form.AddField("Name", name);
+        form.AddField("Record", score);
+        WWW w = new WWW(url, form);
         yield return w;
-
+        
         if (!string.IsNullOrEmpty(w.error))
         {
             print(w.error);

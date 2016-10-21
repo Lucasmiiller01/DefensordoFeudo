@@ -10,7 +10,11 @@ public class EagleBonusBehaviour : MonoBehaviour {
         this.GetComponent<Rigidbody2D>().velocity = this.transform.right * -3 * 10;
         StartCoroutine(Destroy());
     }
-
+    void Update () 
+	{
+        if (CastleBehaviour.lose) Destroy(this.gameObject);
+    }
+   
     IEnumerator Destroy()
     {
         yield return new WaitForSeconds(3f);

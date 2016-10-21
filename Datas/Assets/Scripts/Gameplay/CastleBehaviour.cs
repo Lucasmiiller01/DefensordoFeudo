@@ -6,6 +6,7 @@ public class CastleBehaviour : MonoBehaviour {
 
 	public static bool lose;
 	public GameObject gameOver;
+    public GameObject player;
     static float life;
 	private float atualnumber;
 	public Text score_t;
@@ -64,6 +65,7 @@ public class CastleBehaviour : MonoBehaviour {
         GameObject canvas = GameObject.Find("Canvas BG");
 		canvas.GetComponent<Canvas>().sortingOrder = 5;
 		gameOver.SetActive(true);
+        player.SetActive(false);
 		lose = true;
       
 		GetComponent<ScoreManaher> ().enabled = true;

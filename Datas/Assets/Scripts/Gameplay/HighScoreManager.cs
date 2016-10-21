@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
+using System.Net;
+
 using UnityEngine.UI;
+
 
 using System.Collections;
 
@@ -13,20 +16,18 @@ public class HighScoreManager : MonoBehaviour {
 		Network.proxyIP = "10.10.10.1";
 		Network.proxyPort = 3128;
 		Network.useProxy = true;
-		link = "http://supermanfans.16mb.com/index.php";
+        link = "http://defensor.16mb.com/load.php";
 		StartCoroutine(GetHighScore(link));
 
 	}
 	
 	IEnumerator GetHighScore(string url)
 	{
-        WWW u = new WWW(url + "?service=get");
-        new WaitForSeconds(1f);
+        WWW u = new WWW(link);
 		yield return u;
-		string[] opa = u.text.Split ('/','>');
-		string pao = string.Join (";",opa);
-		pao = pao.Replace (";", string.Empty);
-		opa = pao.Split ('.');
+        Debug.Log(u.text);
+		string[] opa = u.text.Split ('|');
+
 		for (int i = 0, f = 1; f < opa.Length; i += 2, f += 2) 
 		{
 			nameScore.GetComponent<Text> ().text = nameScore.GetComponent<Text> ().text + opa [i] + "\n";
