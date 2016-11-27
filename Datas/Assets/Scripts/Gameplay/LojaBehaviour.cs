@@ -27,7 +27,7 @@ public class LojaBehaviour : MonoBehaviour {
     public Sprite[] spites = new Sprite[2];
     private float value;
     private string upgrade;
-
+    int textsSkin;
 
     void Awake()
 	{
@@ -202,8 +202,18 @@ public class LojaBehaviour : MonoBehaviour {
                 ZPlayerPrefs.SetString("ws_myUpgrades", myUpgrades);
         }
 	}
+    void Update()
+    {
+
+        if (activedperso != null && activedperso.Equals("Hunter") && textsSkin != 0) textsSkin = 0;
+        else if (activedperso != null && activedperso.Equals("Hippie") && textsSkin != 1) textsSkin = 1;
+
+
+    }
+
     void ActiveUpgrade(Text text)
     {
+        if (activedperso != upgrade) texts[textsSkin].text = activedperso + " Acquired";
         text.text = upgrade + " Ative";
         if(upgrade.Equals("Hell"))
         {
